@@ -1,10 +1,9 @@
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 
-const apiRouter = require('./routes/api');
+const apiRouter = require("./routes/api");
 
 const PORT = 3000;
 
@@ -17,15 +16,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 /**
  * handle requests for static files
  */
-app.use('/assets', express.static(path.resolve(__dirname, '../client/assets')));
+app.use("/assets", express.static(path.resolve(__dirname, "../client/assets")));
 
 /**
  * define route handlers
  */
-app.use('/api', apiRouter);
+app.use("/api", apiRouter);
 
 // respond with main app
-app.get('/', (req, res) => res.status(200).sendFile(path.resolve(__dirname, '../client/index.html')));
+app.get("/", (req, res) =>
+  res.status(200).sendFile(path.resolve(__dirname, "../client/index.html"))
+);
 
 // catch-all route handler for any requests to an unknown route
 app.use((req, res) => res.sendStatus(404));
@@ -37,9 +38,9 @@ app.use((req, res) => res.sendStatus(404));
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
   const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
+    log: "Express error handler caught unknown middleware error",
     status: 400,
-    message: { err: 'An error occurred' },
+    message: { err: "An error occurred" },
   };
   const errorObj = Object.assign({}, defaultErr, err);
   console.log(errorObj.log);
